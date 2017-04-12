@@ -1,0 +1,14 @@
+button:focus {outline:0 !important;}
+
+#myCanvas {
+  border: 1px solid black;
+}
+
+#cursor {
+  left: 0;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  border: 1px solid black;
+  position: absolute;
+}

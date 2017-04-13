@@ -13,6 +13,7 @@
 // var gridOrigin = [350, 35];
 
 // var background, turnFeedback, otherFeedback;
+// var otherFeedback;
 
 // // USER INTERFACE SETUP
 // var setupUserInterface = function() {
@@ -38,14 +39,14 @@
 //     align: [0.0, 0.4] 
 //   })
 //   mainContext.add(turnModifier).add(turnFeedback);
-//   otherFeedback = new Surface({
-//     content: "",
-//     size: [undefined, 50],
-//     properties: {
-//       backgroundColor: "rgb(34, 34, 34)",
-//       color: "white"
-//     }
-//   });
+  // otherFeedback = new Surface({
+  //   content: "",
+  //   size: [undefined, 50],
+  //   properties: {
+  //     backgroundColor: "rgb(34, 34, 34)",
+  //     color: "white"
+  //   }
+  // });
 //   var otherModifier = new StateModifier({
 //     origin: [0.0, 1.0],
 //     align: [0.0, 1.0]

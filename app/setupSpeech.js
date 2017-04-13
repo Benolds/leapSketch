@@ -19,9 +19,11 @@ recognition.onresult = function(event) {
 
   if (DEBUGSPEECH) {
     if (hasFinal)
-      otherFeedback.setContent("SPEECH DEBUG: ready");
+      // otherFeedback.setContent("SPEECH DEBUG: ready");
+      console.log("SPEECH DEBUG: ready");
     else
-      otherFeedback.setContent("SPEECH DEBUG: " + transcript);
+      // otherFeedback.setContent("SPEECH DEBUG: " + transcript);
+      console.log("SPEECH DEBUG: " + transcript);
   }
 
   var processed = debouncedProcessSpeech(transcript);
@@ -35,7 +37,8 @@ recognition.onresult = function(event) {
 recognition.onend = function(event) {
   setTimeout(function() {
     if (DEBUGSPEECH)
-      otherFeedback.setContent("SPEECH DEBUG: ready");
+      // otherFeedback.setContent("SPEECH DEBUG: ready");
+      console.log("SPEECH DEBUG: ready");
     recognition.start();
   }, 100);
 };

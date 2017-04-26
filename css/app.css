@@ -7,17 +7,33 @@ button:focus {outline:0 !important;}
 #cursor {
   left: 0;
   top: 0;
-  width: 10px;
-  height: 10px;
-  border: 1px solid black;
+  width: 20px;
+  height: 20px;
+  border: 6px solid black;
   position: absolute;
+  border-radius: 20px;
 }
 
 #cursorIndicator {
-  left: -6px;
-  top: -6px;
-  width: 20px;
-  height: 20px;
-  border: 1px solid black;
+  left: -52px;
+  top: -52px;
+  width: 120px;
+  height: 120px;
+  border: 3px solid black;
+  border-radius: 120px;
   position: relative;
+}
+
+#undoIcon {
+  position: absolute;
+  left: 50px;
+  top: 50px;
+  display: none;
+}
+
+#redoIcon {
+  position: absolute;
+  left: 50px;
+  top: 100px;
+  display: none;
 }

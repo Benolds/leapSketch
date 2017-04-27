@@ -30,48 +30,51 @@ var currentStroke = {points: []};
 var myCanvas;
 var context;
 var mouse = {x: 0, y: 0, z: 0};
+var prevMouse = {x: 0, y: 0, z: 0};
 var isStrokeStarted = false;
 var cursor;
 var cursorIndicator;
 
 var init = function() {
-  myCanvas = document.getElementById("myCanvas");
+    myCanvas = document.getElementById("myCanvas");
 
-  var padding = 20;
-  myCanvas.style.width = window.innerWidth-padding;
-  myCanvas.width = window.innerWidth-padding;
-  myCanvas.style.height = window.innerHeight-padding;
-  myCanvas.height = window.innerHeight-padding;
+    var padding = 20;
+    myCanvas.style.width = window.innerWidth - padding;
+    myCanvas.width = window.innerWidth - padding;
+    myCanvas.style.height = window.innerHeight - padding;
+    myCanvas.height = window.innerHeight - padding;
 
-  context = myCanvas.getContext("2d");
-  cursor = document.getElementById("cursor");
-  cursorIndicator = document.getElementById("cursorIndicator");
+    context = myCanvas.getContext("2d");
+    cursor = document.getElementById("cursor");
+    cursorIndicator = document.getElementById("cursorIndicator");
 
-  drawTools();
+    drawTools();
 
-  /* Mouse Capturing Work */
-  // myCanvas.addEventListener('mousemove', function(e) {
-  //   mouse.x = e.pageX - this.offsetLeft;
-  //   mouse.y = e.pageY - this.offsetTop;
-  // }, false);
+    /* Mouse Capturing Work */
+    // myCanvas.addEventListener('mousemove', function(e) {
+    //   mouse.x = e.pageX - this.offsetLeft;
+    //   mouse.y = e.pageY - this.offsetTop;
+    // }, false);
 
-  /* Drawing on Paint App */
-  context.lineWidth = 5;
-  context.lineJoin = 'round';
-  context.lineCap = 'round';
+    /* Drawing on Paint App */
+    context.lineWidth = 5;
+    context.lineJoin = 'round';
+    context.lineCap = 'round';
     setLineColor('blue');
+
+};
    
-   myCanvas.addEventListener('mousedown', function(e) {
-       startStroke();
-       isStrokeStarted = true;
-       myCanvas.addEventListener('mousemove', onPaint, false);
-   }, false);
-   
-   myCanvas.addEventListener('mouseup', function(e) {
-       isStrokeStarted = false;
-       endStroke();
-       myCanvas.removeEventListener('mousemove', onPaint, false);
-   }, false);
+   //myCanvas.addEventListener('mousedown', function(e) {
+   //    startStroke();
+   //    isStrokeStarted = true;
+   //    myCanvas.addEventListener('mousemove', onPaint, false);
+   //}, false);
+   //
+   //myCanvas.addEventListener('mouseup', function(e) {
+   //    isStrokeStarted = false;
+   //    endStroke();
+   //    myCanvas.removeEventListener('mousemove', onPaint, false);
+   //}, false);
 
    myCanvas.addEventListener('mousemove', function(e) {
        mouse.x = e.pageX - this.offsetLeft;
@@ -81,25 +84,27 @@ var init = function() {
            context.stroke();
            currentStroke.points.push([mouse.x, mouse.y]);
 
-       }
+       } else {
 
-       var cornerToolRadius = 50; // 0
-       if (mouse.x < cornerToolRadius) {
-            //console.log("left");
-           if (mouse.y < cornerToolRadius) {
-               //console.log("top");
-               setLineColor('black');
-           } else if (mouse.y > myCanvas.height - cornerToolRadius) {
-               setLineColor('green');
+           var cornerToolRadius = 50; // 0
+           if (mouse.x < cornerToolRadius) {
+               //console.log("left");
+               if (mouse.y < cornerToolRadius) {
+                   //console.log("top");
+                   setLineColor('black');
+               } else if (mouse.y > myCanvas.height - cornerToolRadius) {
+                   setLineColor('green');
+               }
+           } else if (mouse.x > myCanvas.width - cornerToolRadius) {
+               //console.log("right");
+               if (mouse.y < cornerToolRadius) {
+                   //console.log("top");
+                   setLineColor('red');
+               } else if (mouse.y > myCanvas.height - cornerToolRadius) {
+                   setLineColor('blue');
+               }
            }
-       } else if (mouse.x > myCanvas.width - cornerToolRadius) {
-           //console.log("right");
-           if (mouse.y < cornerToolRadius) {
-               //console.log("top");
-               setLineColor('red');
-           } else if (mouse.y > myCanvas.height - cornerToolRadius) {
-               setLineColor('blue');
-           }
+
        }
 
 
@@ -126,8 +131,11 @@ var init = function() {
   document.body.onkeydown = function(e){
       if(e.keyCode == 32 && !isStrokeStarted){
           console.log("Space down!");
-          startStroke();
+          //startStroke();
+
+          resetCanvas();
       }
+
 
       else if (e.keyCode == 37) {
           undo();
@@ -168,6 +176,7 @@ var init = function() {
     }
 
 // TODO: visualize the undo with an animation or icon
+    // TODO: define function on upper level so its visible to everything
     function undo() {
         if (strokes.length > 0) {
             var strokeToUndo = strokes.pop();
@@ -209,8 +218,6 @@ var init = function() {
         });
     }
 
-};
-
 // Called every time the Leap provides a new frame of data
 Leap.loop (function(frame) {
 
@@ -228,7 +235,7 @@ Leap.loop (function(frame) {
 
     // cursorIndicator.style.border = '1px solid black';
     cursorIndicator.style.opacity = Math.min(1.0, Math.max(0.0, 1.0 - distance));
-    
+
     cursorIndicator.style.border = Math.ceil(Math.max(1.0,  -10.0 * distance)) + "px solid " + context.strokeStyle;
     console.log(cursorIndicator.style.border);
       // border: 1px solid black;
@@ -274,7 +281,29 @@ Leap.loop (function(frame) {
       context.stroke();
       currentStroke.points.push([mouse.x, mouse.y]);
       // console.log(mouse);
-    }
+
+    } else {
+
+      var cornerToolRadius = 50; // 0
+      if (mouse.x < cornerToolRadius) {
+          //console.log("left");
+          if (mouse.y < cornerToolRadius) {
+              //console.log("top");
+              setLineColor('black');
+          } else if (mouse.y > myCanvas.height - cornerToolRadius) {
+              setLineColor('green');
+          }
+      } else if (mouse.x > myCanvas.width - cornerToolRadius) {
+          //console.log("right");
+          if (mouse.y < cornerToolRadius) {
+              //console.log("top");
+              setLineColor('red');
+          } else if (mouse.y > myCanvas.height - cornerToolRadius) {
+              setLineColor('blue');
+          }
+      }
+
+  }
 
   }
 
@@ -305,11 +334,22 @@ Leap.loop (function(frame) {
 
 }).use('screenPosition'); //, {scale: LEAPSCALE});
 
+function resetCanvas() {
+    console.log("reset canvas");
+    context.clearRect(0, 0, myCanvas.width, myCanvas.height);
+
+    for (var i = 0; i < strokes.length; i++) {
+        undo();
+    }
+
+    drawTools();
+}
+
 
 //   ({ hand: function(hand) {
 
 //   mouse.x = hand.screenPosition()[0]; //TODO: map between screenWidth/height to canvasWidth/height
-//   mouse.y = hand.screenPosition()[1]; 
+//   mouse.y = hand.screenPosition()[1];
 
 //   cursor.style.left = (mouse.x) + 'px';
 //   cursor.style.top = (mouse.y) + 'px';
@@ -344,8 +384,7 @@ var processSpeech = function(transcript) {
 
   if (userSaid(transcript,["clear", "reset", "erase", "new"])) {
     processed = true;
-    console.log("reset canvas");
-    context.clearRect(0, 0, myCanvas.width, myCanvas.height);
+      resetCanvas();
   }
 
   // if (gameState.get('state') == 'setup') {

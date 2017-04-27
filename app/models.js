@@ -8,6 +8,7 @@ var Cursor = Backbone.Model.extend({
 });
 
 
+
 // var Stroke = {
 //   // set of points
 //   // color

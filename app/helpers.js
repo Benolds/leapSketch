@@ -1,3 +1,11 @@
+var Cursor = Backbone.Model.extend({
+  defaults: {
+    screenPosition: [0, 0]
+  },
+  setScreenPosition: function(position) {
+    this.set('screenPosition', position.slice(0));
+  }
+});
 
 // SPEECH SYNTHESIS SETUP
 var voicesReady = false;
@@ -8,7 +16,6 @@ window.speechSynthesis.onvoiceschanged = function() {
 };
 
 var generateSpeech = function(message, callback) {
-  console.log("CALLEDd");
   if (voicesReady) {
     var msg = new SpeechSynthesisUtterance();
     console.log(VOICEINDEX)

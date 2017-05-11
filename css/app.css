@@ -1,7 +1,18 @@
 button:focus {outline:0 !important;}
 
+body {
+    background-color: #262626;
+}
+
 #myCanvas {
   border: 1px solid black;
+  position: absolute;
+    background-color: #FFF0A5;
+}
+
+#bottomPanel {
+    border: 1px solid black;
+    position: absolute;
 }
 
 #cursor {
@@ -26,14 +37,36 @@ button:focus {outline:0 !important;}
 
 #undoIcon {
   position: absolute;
-  left: 50px;
-  top: 50px;
+  font-size: 50px;
+  font-family: sans-serif;
+
+  /*left: 50px;*/
+  /*top: 50px;*/
   display: none;
 }
 
 #redoIcon {
   position: absolute;
-  left: 50px;
-  top: 100px;
+  font-size: 50px;
+  font-family: sans-serif;
+
+  /*left: 50px;*/
+  /*top: 100px;*/
   display: none;
+}
+
+.instructions {
+    font-size: 50px;
+    font-family: sans-serif;
+    word-wrap: break-word;
+    width: 200px;
+    text-align: center;
+}
+
+#undoButton {
+    position: absolute;
+}
+
+#redoButton {
+    position: absolute;
 }

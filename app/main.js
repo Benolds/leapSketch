@@ -319,19 +319,19 @@ Leap.loop (function(frame) {
             }
         }
 
-        if (mouse.x < 0) {
-            if (mouse.y < 0) {
-                setLineColor('black');
-            } else if (mouse.y > myCanvas.height) {
-                setLineColor('green');
-            }
-        } else if (mouse.x > myCanvas.width) {
-            if (mouse.y < 0) {
-                setLineColor('red');
-            } else if (mouse.y > myCanvas.height) {
-                setLineColor('blue');
-            }
-        }
+        //if (mouse.x < 0) {
+        //    if (mouse.y < 0) {
+        //        setLineColor(colors.upperLeft);
+        //    } else if (mouse.y > myCanvas.height) {
+        //        setLineColor(colors.lowerLeft);
+        //    }
+        //} else if (mouse.x > myCanvas.width) {
+        //    if (mouse.y < 0) {
+        //        setLineColor(colors.upperRight);
+        //    } else if (mouse.y > myCanvas.height) {
+        //        setLineColor(colors.lowerRight);
+        //    }
+        //}
         //console.log(cursorWidth);
 
         cursorWidth = cursor.clientWidth + parseInt(cursor.style.borderWidth);
@@ -370,18 +370,18 @@ Leap.loop (function(frame) {
 
             if (mouse.x < cornerToolRadius) {
                 if (mouse.y < cornerToolRadius) {
-                    setLineColor('black');
+                    setLineColor(colors.upperLeft);
                 } else if (mouse.y > myCanvas.height - cornerToolRadius) {
-                    setLineColor('green');
+                    setLineColor(colors.lowerLeft);
                 }
 
             } else if (mouse.x > myCanvas.width - cornerToolRadius) {
                 //console.log("right");
                 if (mouse.y < cornerToolRadius) {
                     //console.log("top");
-                    setLineColor('red');
+                    setLineColor(colors.upperRight);
                 } else if (mouse.y > myCanvas.height - cornerToolRadius) {
-                    setLineColor('blue');
+                    setLineColor(colors.lowerRight);
                 }
             }
 

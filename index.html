@@ -32,9 +32,21 @@
 </head>
 <body onload="init(this.window)">
 
-<canvas id="bottomPanel" width="700px" height="200px">Bottom Panel</canvas>
-<div id="undoButton" class="instructions">Pinch to Undo</div>
-<div id="redoButton" class="instructions">Pinch to Redo</div>
+<!--<canvas id="bottomPanel" width="700px" height="200px">Bottom Panel</canvas>-->
+<div id="undoButton" class="instructions">
+  <div style="display: table; height: 100%; width: 100%; overflow: hidden;">
+    <div style="display: table-cell; vertical-align: middle;">
+        Undo
+    </div>
+  </div>
+</div>
+<div id="redoButton" class="instructions">
+  <div style="display: table; height: 100%; width: 100%; overflow: hidden;">
+    <div style="display: table-cell; vertical-align: middle;">
+      Redo
+    </div>
+  </div>
+</div>
 
 <canvas id="myCanvas" width="700px" height="550px"></canvas>
 <div id="cursor">
